@@ -7,5 +7,6 @@ public class main {
         String pessoa = JOptionPane.showInputDialog("Cliente:");
         Cliente cliente = new Cliente();
         cliente.setNome(pessoa);
+        System.out.println("test");
     }
 }
