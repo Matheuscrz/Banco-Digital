@@ -2,35 +2,27 @@ package Java.Banco;
 
 import javax.swing.JOptionPane;
 
-class conta {
-    private static final int Agencia = 1;
-    private String Cliente;
-    private int conta;
-    private double saldo = 0 ;
-    private int tipo;
-    private String Rua;
-    private String Bairro;
-    private String Cidade;
-    private String Estado;
-    private String Pais;
-    private int Cep;
-    private int numero;
-    public conta(String cliente, int conta, double saldo, int tipo, String rua, String bairro, String cidade,
-            String estado, String pais, int cep, int numero) {
-        Cliente = cliente;
-        this.conta = conta;
-        this.saldo = saldo;
-        this.tipo = tipo;
-        Rua = rua;
-        Bairro = bairro;
-        Cidade = cidade;
-        Estado = estado;
-        Pais = pais;
-        Cep = cep;
-        this.numero = numero;
+public abstract class conta implements Iconta {
+    protected static final int Agencia_Padrao = 1;
+    protected int Agencia;
+    protected String Cliente;
+    protected int conta;
+    protected double saldo = 0d;
+    protected String Rua;
+    protected String Bairro;
+    protected String Cidade;
+    protected String Estado;
+    protected String Pais;
+    protected int Cep;
+    protected int numero;
+    public static int getAgenciaPadrao() {
+        return Agencia_Padrao;
     }
-    public static int getAgencia() {
+    public int getAgencia() {
         return Agencia;
+    }
+    public void setAgencia(int agencia) {
+        Agencia = agencia;
     }
     public String getCliente() {
         return Cliente;
@@ -49,12 +41,6 @@ class conta {
     }
     public void setSaldo(double saldo) {
         this.saldo = saldo;
-    }
-    public int getTipo() {
-        return tipo;
-    }
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
     }
     public String getRua() {
         return Rua;
@@ -98,18 +84,18 @@ class conta {
     public void setNumero(int numero) {
         this.numero = numero;
     }
-    void depositar(Double valor) {
+    @Override
+    public void depositar(double valor) {
         saldo += valor;
     }
-    void sacar(Double valor) {
+    @Override
+    public void sacar(double valor) {
         if(saldo >= valor) saldo -= valor;
-        JOptionPane.showMessageDialog(null, "Saldo Insufuciente!"); 
+        JOptionPane.showMessageDialog(null, "Saldo Insufuciente!");
     }
-    void tranferir(int tipo, int conta, Double valor){
-        this.sacar(valor);
-        //
-    }
-    void pix(int key, Double valor){
-
+    @Override
+    public void tranferir(double valor, conta contadestino) {
+       this.sacar(valor);
+        contadestino.depositar(valor);
     }
 }
