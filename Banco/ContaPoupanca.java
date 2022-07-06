@@ -1,18 +1,24 @@
 package Java.Banco;
 
 class ContaPoupanca extends conta {
-    private int cpf;
-    private String dataNascimento;
-    private String nacionalidade;
-    private int rg;
-    public ContaPoupanca(String cliente, int conta, double saldo, int tipo, String rua, String bairro, String cidade,
-            String estado, String pais, int cep, int numero, int cpf, String dataNascimento, String nacionalidade,
-            int rg) {
-        super(cliente, conta, saldo, tipo, rua, bairro, cidade, estado, pais, cep, numero);
+    private static int Sequencial = 1;
+    protected int cpf;
+    protected String dataNascimento;
+    protected String nacionalidade;
+    protected int rg;
+    public ContaPoupanca(int cpf, String dataNascimento, String nacionalidade, int rg) {
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.nacionalidade = nacionalidade;
         this.rg = rg;
+        super.Agencia = Agencia_Padrao;
+        super.conta = Sequencial++;
+    }
+    public static int getSequencial() {
+        return Sequencial;
+    }
+    public static void setSequencial(int sequencial) {
+        Sequencial = sequencial;
     }
     public int getCpf() {
         return cpf;
@@ -37,5 +43,12 @@ class ContaPoupanca extends conta {
     }
     public void setRg(int rg) {
         this.rg = rg;
+    }
+    @Override
+    public void extrato() {
+        System.out.println("=== Extrato da Conta ===");
+        System.out.println(String.format("Agencia: %d", super.Agencia));
+        System.out.println(String.format("Conta: %d", super.conta));
+        System.out.println(String.format("Saldo: %d", super.saldo));
     }
 }
