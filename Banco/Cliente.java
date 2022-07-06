@@ -1,7 +1,9 @@
 package Java.Banco;
 
 public class Cliente {
-    private String nome;
+    protected String nome;
+    public Cliente() {
+    }
 
     public String getNome() {
         return nome;
